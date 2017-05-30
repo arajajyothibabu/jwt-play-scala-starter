@@ -36,7 +36,7 @@ class Application extends Controller {
   }
 
   def securedAction = AuthenticatedAction.async { request =>
-    Future(Ok(s"You are legitimate Mr. ${request.toString}..!"))
+    Future(Ok(s"You are legitimate Mr. ${request}..!"))
   }
 
 }

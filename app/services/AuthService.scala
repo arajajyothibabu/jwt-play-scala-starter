@@ -8,7 +8,7 @@ import utils.Helpers.Auth
   */
 class AuthService {
 
-  val dummyDataSource = UserLoginRequestModel("user", "password")
+  val dummyDataSource = UserLoginRequestModel("arajajyothibabu", "password")
 
   def login(userLoginRequestModel: UserLoginRequestModel) = { //just for mock
     /**
