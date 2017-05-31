@@ -14,9 +14,13 @@ class Application extends Controller {
   val authService = new AuthService()
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index("JWT Play Framework Scala Starter Kit"))
   }
 
+  /**
+    * Normal action without Authenticated request
+    * @return
+    */
   def login = Action.async(parse.json) { implicit request =>
     request.body.validate[UserLoginRequestModel].fold(
       _ => Future(BadRequest("Bad Request Buddy..!")),
@@ -35,8 +39,20 @@ class Application extends Controller {
     )
   }
 
-  def securedAction = AuthenticatedAction.async { request =>
-    Future(Ok(s"You are legitimate Mr. ${request}..!"))
+  /**
+    * request contains userInfo
+    * @return
+    */
+  def securedAction = AuthenticatedAction.async { implicit request =>
+    Future(Ok(s"You are legitimate Mr. ${request.user.userId}..!"))
+  }
+
+  /**
+    * It's an insecure action which everyone can access without token
+    * @return
+    */
+  def inSecuredAction = Action.async { implicit request =>
+    Future(Ok(s"Anyone can come here. You too..!"))
   }
 
 }

@@ -13,9 +13,9 @@ import utils.Helpers._
   */
 class AuthenticatedRequest[A](val user: UserInfo, request: Request[A]) extends WrappedRequest[A](request)
 
-object AuthenticatedAction extends ActionBuilder[Request] {
+object AuthenticatedAction extends ActionBuilder[AuthenticatedRequest] {
 
-  def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
+  def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]) = {
     val userInfoFromToken = Auth.userInfoFromToken(request.headers.apply("WWW-Authenticate"))
     if(userInfoFromToken.isSuccess){
       val userInfoOpt = userInfoFromToken.get.validate[UserInfo].asOpt

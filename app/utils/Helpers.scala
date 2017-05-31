@@ -11,9 +11,9 @@ object Helpers {
 
   object Auth {
 
-    val secret = "Shhhhh.. It's top secret..!"
+    val secret = "Shhhhh.. It's top secret..!" //take from conf or something else
 
-    val algorithm = JwtAlgorithm.HS256
+    val algorithm = JwtAlgorithm.HS256 //we can use any supported algorithm here
 
     def generateToken(userInfo: UserInfo) = { //here userInfo is claim
       val claim = Json.toJson(userInfo).toString //stringify since can't encode JsValue
